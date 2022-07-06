@@ -37,19 +37,21 @@
         System.err.println("con Error:" + e.getMessage());
         e.printStackTrace();
     }
+    int total = 0;
 
-    Statement statement = con.createStatement();
-    ResultSet resultSet = statement.executeQuery("select * from member");
+    Statement stmt = con.createStatement();
 
-    resultSet.next();
+    String sqlCount = "SELECT COUNT(*) FROM member";
+    ResultSet rs = stmt.executeQuery(sqlCount);
 
-    // 3.해제
-    try {
-        if(con != null)
-            con.close();
-        statement.close();
-        resultSet.close();
-    } catch (SQLException e) {}
+    if(rs.next()){
+        total = rs.getInt(1);
+    }
+
+    //    String sqlList = "SELECT num,category,title,writer,date,text,available,views,mode_date FROM member ORDER BY num DESC";
+//    rs = stmt.executeQuery(sqlList);
+
+
 %>
 
 <%
@@ -75,19 +77,24 @@
     int listSize=0;
 
     //검색에 사용될 변수들(제목 + 작성자 + 내용)
-    String title="", writer ="", text ="";
+//    String title="", writer ="", text ="";
 
 
 %>
 
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html;  charset=UTF-8">
     <title><%= boardTitle%>></title>
+    <script type="text/javascript">
+        function gourl(url){
+            location.href=url;
+        }
+    </script>
     <h1>게시판-목록</h1>
+<%--    CSS--%>
     <div id="search">
-        <p>등록일</p>
-        <input type="date" | type = "month" | type="week" >
+        <label>등록일<input type="date" | type = "month" | type="week" ></label>
         <input type="date" | type = "month" | type="week" >
         <input type="text" placeholder="전체 카테고리" list="pack">
         <datalist id="pack">
@@ -103,6 +110,14 @@
 <body>
 <nav id="board_list">
     <table>
+        <colgroup>
+            <col style="width: auto" />
+            <col style="width: auto" />
+            <col style="width: auto" />
+            <col style="width: auto" />
+            <col style="width: auto" />
+            <col style="width: auto" />
+        </colgroup>
         <thead>
         <tr>
             <th>카테고리</th>
@@ -114,20 +129,55 @@
         </tr>
         </thead>
         <tbody >
+        <%
+        if(total==0){
+        %>
         <tr>
-            <td>Java</td>
-            <td>Okky 3월 세미나 서비스 개발자로 커리어 전환</td>
-            <td>윤상진</td>
-            <td>12</td>
-            <td>2022.04.08</td>
-            <td>2022.04.08</td>
+            <td>등록된 게시물이 없습니다.</td>
         </tr>
+        <%
+            }else{
+            while(rs.next()){
+                int num = rs.getInt(1);
+                String category = rs.getString(2);
+                String title = rs.getString(3);
+                String writer = rs.getString(4);
+                int views = rs.getInt(6);
+                Date mod_date = rs.getDate(7);
+                Date create_date =rs.getDate(9);
+        %>
+        <tr>
+            <td style="width:100px"><%=num%></td>
+            <td style="width:100px"><%=category%></td>
+            <td ><%=title%></td>
+            <td ><%=writer%></td>
+            <td ><%=views%></td>
+            <td ><%=create_date%></td>
+            <td ><%=mod_date%></td>
+        </tr>
+        <%
+            }
+            }
+            // 3.해제
+            try {
+                if(con != null)
+                    con.close();
+                stmt.close();
+                rs.close();
+            } catch (SQLException e) {}
+        %>
         </tbody>
+        <tfoot>
+            <tr>
+                <td align="center" colspan="5"></td>
+            </tr>
+        </tfoot>
     </table>
 </nav>
 </body>
 <footer>
-
-    <input type="submit" value = "글쓰기">
+    <p>
+        <input type="submit" value = "글쓰기" onclick="gourl('board_write.jsp')">
+    </p>
 </footer>
 </html>
