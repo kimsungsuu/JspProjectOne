@@ -10,8 +10,9 @@
     String boardTitle = "board_list";
 %>
 <%@ page import="java.sql.*" %>
-<%@ page import="board_bean" %>
+<%--<%@ page import="board_bean" %>--%>
 <%@ page import="java.util.Vector"%>
+
 <%
     Connection con = null;
 
@@ -42,12 +43,6 @@
 
     resultSet.next();
 
-//    String write = resultSet.getString("write");
-//    String title = resultSet.getString("title");
-//    int num = resultSet.getInt("num");
-//    String category = resultSet.getString("category");
-
-//    System.out.println(write);
     // 3.해제
     try {
         if(con != null)
@@ -56,43 +51,68 @@
         resultSet.close();
     } catch (SQLException e) {}
 %>
-<%--<%@ page import = "connect.Connect" %>--%>
 
-<html>
+<%
+    request.setCharacterEncoding("EUC-KR");
+
+    int totalRecord = 0;    //전체 레코드 수
+    int numPerPage = 10;    // 페이지 당 레코드 수
+    int pagePerBlock = 10;  //블럭당 페이지 수
+
+    int totalPage=0;    //전체 페이지 수
+    int totalBlock=0;   //전체 블럭 수
+
+    int no
+%>
+
+<html lang="ko">
 <head>
+    <meta charset="UTF-8">
     <title><%= boardTitle%>></title>
     <h1>게시판-목록</h1>
     <div id="search">
         <p>등록일</p>
+        <input type="date" | type = "month" | type="week" >
+        <input type="date" | type = "month" | type="week" >
+        <input type="text" placeholder="전체 카테고리" list="pack">
+        <datalist id="pack">
+            <option value="Java">Java</option>
+            <option value="Javascript">Javascript</option>
+            <option value="Database">Database</option>
+        </datalist>
 
+        <input type="text" placeholder="검색어를 입력해주세요(제목 + 작성자 + 내용)">
+        <input type="submit"  value="검색">
     </div>
 </head>
+<body>
 <nav id="board_list">
     <table>
         <thead>
-            <tr>
-                    <th>카테고리</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>조회수</th>
-                    <th>등록 일시</th>
-                    <th>수정 일시</th>
-            </tr>
+        <tr>
+            <th>카테고리</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>조회수</th>
+            <th>등록 일시</th>
+            <th>수정 일시</th>
+        </tr>
         </thead>
         <tbody >
-            <tr>
-                <td>Java</td>
-                <td>Okky 3월 세미나 서비스 개발자로 커리어 전환</td>
-                <td>윤상진</td>
-                <td>12</td>
-                <td>2022.04.08</td>
-                <td>2022.04.08</td>
-            </tr>
+        <tr>
+            <td>Java</td>
+            <td>Okky 3월 세미나 서비스 개발자로 커리어 전환</td>
+            <td>윤상진</td>
+            <td>12</td>
+            <td>2022.04.08</td>
+            <td>2022.04.08</td>
+        </tr>
         </tbody>
     </table>
 </nav>
-<body>
-
-
 </body>
+<footer>
+
+    <input type="submit" value = "글쓰기">
+</footer>
 </html>
