@@ -30,12 +30,12 @@
 
   resultSet.next();
 
-  String name = resultSet.getString("name");
-  String email = resultSet.getString("email");
-  int num = resultSet.getInt("num");
-  String pw = resultSet.getString("pw");
+//  String name = resultSet.getString("name");
+//  String email = resultSet.getString("email");
+//  int num = resultSet.getInt("num");
+//  String pw = resultSet.getString("pw");
 
-  System.out.println(name);
+//  System.out.println(name);
 
   // 3.해제
   try {
@@ -52,6 +52,6 @@
     <title>JSP-Hello World</title>
   </head>
   <body>
-  <h1><%= name + " " + email + " " + pw + " " + num %></h1>
+<%--  <h1><%= name + " " + email + " " + pw + " " + num %></h1>--%>
   </body>
 </html>
