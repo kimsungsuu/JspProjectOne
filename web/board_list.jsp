@@ -2,10 +2,10 @@
   Created by IntelliJ IDEA.
   User: LG677
   Date: 2022-07-05
-  Time: ì˜¤í›„ 3:48
+  Time: ¿ÀÈÄ 3:48
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="EUC-KR" %>
 <%
     String boardTitle = "board_list";
 %>
@@ -17,19 +17,19 @@
     Connection con = null;
 
     String url = "jdbc:mysql://localhost:3306/user?useSSL=false";
-    String user_name = "root"; //  MySQL ì„œë²„ ì•„ì´ë””
-    String password = "pw1234"; // MySQL ì„œë²„ ë¹„ë°€ë²ˆí˜¸
+    String user_name = "root"; //  MySQL ¼­¹ö ¾ÆÀÌµğ
+    String password = "pw1234"; // MySQL ¼­¹ö ºñ¹Ğ¹øÈ£
 
-//   1.ë“œë¼ì´ë²„ ë¡œë”©
+//   1.µå¶óÀÌ¹ö ·Îµù
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         System.out.println("connect success!!!!");
     } catch (ClassNotFoundException e) {
-        System.err.println(" !! <JDBC Driver Error> Driver load Error ì˜¤ë¥˜ì˜¤ë¥˜: " + e.getMessage());
+        System.err.println(" !! <JDBC Driver Error> Driver load Error ¿À·ù¿À·ù: " + e.getMessage());
         e.printStackTrace();
     }
 
-    // 2.ì—°ê²°
+    // 2.¿¬°á
     try {
         con = DriverManager.getConnection(url, user_name, password);
         System.out.println("Connect Success");
@@ -43,7 +43,7 @@
 
     resultSet.next();
 
-    // 3.í•´ì œ
+    // 3.ÇØÁ¦
     try {
         if(con != null)
             con.close();
@@ -53,36 +53,51 @@
 %>
 
 <%
-    request.setCharacterEncoding("EUC-KR");
+//    request.setCharacterEncoding("EUC-KR");
+    //request ¸Ş¼Òµå°¡ import µÇ¾î ÀÖÁö ¾Ê¾Æ¼­ ¿¡·¯°¡ ¹ß»ıÇÏ´Â°ÍÀ¸·Î ¿¹»óÇÑ´Ù.
+    //beans ÀÚ¹Ù ÆÄÀÏ ¶Ç´Â Mgr ÀÚ¹Ù ÆÄÀÏ ¾È¿¡ import µÇ¾îÀÖÀ» °ÍÀ¸·Î ¿¹»óÇÑ´Ù.
 
-    int totalRecord = 0;    //ì „ì²´ ë ˆì½”ë“œ ìˆ˜
-    int numPerPage = 10;    // í˜ì´ì§€ ë‹¹ ë ˆì½”ë“œ ìˆ˜
-    int pagePerBlock = 10;  //ë¸”ëŸ­ë‹¹ í˜ì´ì§€ ìˆ˜
+    int totalRecord = 0;    //ÀüÃ¼ ·¹ÄÚµå ¼ö
+    int numPerPage = 10;    // ÆäÀÌÁö ´ç ·¹ÄÚµå ¼ö
+    int pagePerBlock = 10;  //ºí·°´ç ÆäÀÌÁö ¼ö
 
-    int totalPage=0;    //ì „ì²´ í˜ì´ì§€ ìˆ˜
-    int totalBlock=0;   //ì „ì²´ ë¸”ëŸ­ ìˆ˜
+    int totalPage=0;    //ÀüÃ¼ ÆäÀÌÁö ¼ö
+    int totalBlock=0;   //ÀüÃ¼ ºí·° ¼ö
 
-    int no
+    int nowPage=1;  // ÇöÀç ÆäÀÌÁö
+    int nowBlock=1; // ÇöÀç ºí·°
+
+    //ÇÑ ÆäÀÌÁö´ç Ãâ·ÂµÇ´Â °Ô½Ã¹° ¼ö.
+    int start=0;
+    int end=10;
+
+    //ÇöÀç ÀĞ¾î¿Â °Ô½Ã¹° ¼ö
+    int listSize=0;
+
+    //°Ë»ö¿¡ »ç¿ëµÉ º¯¼öµé(Á¦¸ñ + ÀÛ¼ºÀÚ + ³»¿ë)
+    String title="", writer ="", text ="";
+
+
 %>
 
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title><%= boardTitle%>></title>
-    <h1>ê²Œì‹œíŒ-ëª©ë¡</h1>
+    <h1>°Ô½ÃÆÇ-¸ñ·Ï</h1>
     <div id="search">
-        <p>ë“±ë¡ì¼</p>
+        <p>µî·ÏÀÏ</p>
         <input type="date" | type = "month" | type="week" >
         <input type="date" | type = "month" | type="week" >
-        <input type="text" placeholder="ì „ì²´ ì¹´í…Œê³ ë¦¬" list="pack">
+        <input type="text" placeholder="ÀüÃ¼ Ä«Å×°í¸®" list="pack">
         <datalist id="pack">
             <option value="Java">Java</option>
             <option value="Javascript">Javascript</option>
             <option value="Database">Database</option>
         </datalist>
 
-        <input type="text" placeholder="ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”(ì œëª© + ì‘ì„±ì + ë‚´ìš©)">
-        <input type="submit"  value="ê²€ìƒ‰">
+        <input type="text" placeholder="°Ë»ö¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä(Á¦¸ñ + ÀÛ¼ºÀÚ + ³»¿ë)">
+        <input type="submit"  value="°Ë»ö">
     </div>
 </head>
 <body>
@@ -90,19 +105,19 @@
     <table>
         <thead>
         <tr>
-            <th>ì¹´í…Œê³ ë¦¬</th>
-            <th>ì œëª©</th>
-            <th>ì‘ì„±ì</th>
-            <th>ì¡°íšŒìˆ˜</th>
-            <th>ë“±ë¡ ì¼ì‹œ</th>
-            <th>ìˆ˜ì • ì¼ì‹œ</th>
+            <th>Ä«Å×°í¸®</th>
+            <th>Á¦¸ñ</th>
+            <th>ÀÛ¼ºÀÚ</th>
+            <th>Á¶È¸¼ö</th>
+            <th>µî·Ï ÀÏ½Ã</th>
+            <th>¼öÁ¤ ÀÏ½Ã</th>
         </tr>
         </thead>
         <tbody >
         <tr>
             <td>Java</td>
-            <td>Okky 3ì›” ì„¸ë¯¸ë‚˜ ì„œë¹„ìŠ¤ ê°œë°œìë¡œ ì»¤ë¦¬ì–´ ì „í™˜</td>
-            <td>ìœ¤ìƒì§„</td>
+            <td>Okky 3¿ù ¼¼¹Ì³ª ¼­ºñ½º °³¹ßÀÚ·Î Ä¿¸®¾î ÀüÈ¯</td>
+            <td>À±»óÁø</td>
             <td>12</td>
             <td>2022.04.08</td>
             <td>2022.04.08</td>
@@ -113,6 +128,6 @@
 </body>
 <footer>
 
-    <input type="submit" value = "ê¸€ì“°ê¸°">
+    <input type="submit" value = "±Û¾²±â">
 </footer>
 </html>
