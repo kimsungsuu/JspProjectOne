@@ -41,43 +41,16 @@
 
     Statement stmt = con.createStatement();
 
-    String sqlCount = "SELECT COUNT(*) FROM member";
+    String sqlCount = "SELECT * FROM member";
     ResultSet rs = stmt.executeQuery(sqlCount);
 
     if(rs.next()){
         total = rs.getInt(1);
     }
+    rs.close();
 
-    //    String sqlList = "SELECT num,category,title,writer,date,text,available,views,mode_date FROM member ORDER BY num DESC";
-//    rs = stmt.executeQuery(sqlList);
-
-
-%>
-
-<%
-//    request.setCharacterEncoding("EUC-KR");
-    //request 메소드가 import 되어 있지 않아서 에러가 발생하는것으로 예상한다.
-    //beans 자바 파일 또는 Mgr 자바 파일 안에 import 되어있을 것으로 예상한다.
-
-    int totalRecord = 0;    //전체 레코드 수
-    int numPerPage = 10;    // 페이지 당 레코드 수
-    int pagePerBlock = 10;  //블럭당 페이지 수
-
-    int totalPage=0;    //전체 페이지 수
-    int totalBlock=0;   //전체 블럭 수
-
-    int nowPage=1;  // 현재 페이지
-    int nowBlock=1; // 현재 블럭
-
-    //한 페이지당 출력되는 게시물 수.
-    int start=0;
-    int end=10;
-
-    //현재 읽어온 게시물 수
-    int listSize=0;
-
-    //검색에 사용될 변수들(제목 + 작성자 + 내용)
-//    String title="", writer ="", text ="";
+    String sqlList = "SELECT num,category,title,writer,create_date,views,mod_date FROM member ORDER BY num DESC";
+    rs = stmt.executeQuery(sqlList);
 
 
 %>
@@ -86,13 +59,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;  charset=UTF-8">
     <title><%= boardTitle%>></title>
+
+<%--    해당하는 url로 이동할 수 있도록 자바스크립트 함수 선언--%>
     <script type="text/javascript">
         function gourl(url){
             location.href=url;
         }
     </script>
+
     <h1>게시판-목록</h1>
-<%--    CSS--%>
     <div id="search">
         <label>등록일<input type="date" | type = "month" | type="week" ></label>
         <input type="date" | type = "month" | type="week" >
@@ -111,14 +86,6 @@
 <form name="searchform" action="" method="get"></form>
 <nav id="board_list">
     <table>
-        <colgroup>
-            <col style="width: auto" />
-            <col style="width: auto" />
-            <col style="width: auto" />
-            <col style="width: auto" />
-            <col style="width: auto" />
-            <col style="width: auto" />
-        </colgroup>
         <thead>
         <tr>
             <th>카테고리</th>
@@ -130,42 +97,37 @@
         </tr>
         </thead>
         <tbody >
+<%--        게시물이 없다면--%>
         <%
         if(total==0){
         %>
         <tr>
             <td>등록된 게시물이 없습니다.</td>
         </tr>
+<%--        게시물이 존재한다면 출력--%>
         <%
             }else{
             while(rs.next()){
-                int num = rs.getInt(1);
-                String category = rs.getString(2);
-                String title = rs.getString(3);
-                String writer = rs.getString(4);
-                int views = rs.getInt(6);
-                Date mod_date = rs.getDate(7);
-                Date create_date =rs.getDate(9);
+                int num = rs.getInt("num");
+                String category = rs.getString("category");
+                String title = rs.getString("title");
+                String writer = rs.getString("writer");
+                int views = rs.getInt("views");
+                Date mod_date = rs.getDate("mod_date");
+                Date create_date =rs.getDate("create_date");
         %>
         <tr>
-            <td style="width:100px"><%=num%></td>
             <td style="width:100px"><%=category%></td>
+<%--            title을 클릭하면 게시물을 볼 수 있도록 설정--%>
             <td ><a href="board_view.jsp?num=<%=num%>>"><%=title%></a></td>
             <td ><%=writer%></td>
             <td ><%=views%></td>
             <td ><%=create_date%></td>
             <td ><%=mod_date%></td>
-
-            <td style="width:100px">Java</td>
-            <td ><a href="board_view.jsp?num=<%=num%>>">Okky 가나다라마바사 반갑습니다</a></td>
-            <td >김성수</td>
-            <td >12</td>
-            <td >2022.7.6</td>
-            <td >2022.7.6</td>
         </tr>
         <%
             }
-            }
+        }
             // 3.해제
             try {
                 if(con != null)
