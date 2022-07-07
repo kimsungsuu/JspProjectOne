@@ -50,7 +50,7 @@
 <head>
     <title>board_write</title>
 </head>
-<h1>게시판-등록</h1>
+<h1>게시판 - 등록</h1>
 
 <script type="text/javascript">
     function gourl(url){

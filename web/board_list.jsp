@@ -44,7 +44,7 @@
     }
     rs.close();
 
-    String sqlList = "SELECT num,category,title,writer,create_date,views,mod_date FROM board ORDER BY num DESC";
+    String sqlList = "SELECT num,category,title,writer,create_date,views,mod_date FROM board ORDER BY num ASC";
     rs = stmt.executeQuery(sqlList);
 %>
 
@@ -60,7 +60,7 @@
         }
     </script>
 
-    <h1>게시판-목록</h1>
+    <h1>게시판 - 목록</h1>
     <div id="search">
         <label>등록일<input type="date" | type = "month" | type="week" ></label>
         <input type="date" | type = "month" | type="week" >
@@ -81,6 +81,7 @@
     <table>
         <thead>
         <tr>
+            <th>번호</th>
             <th>카테고리</th>
             <th>제목</th>
             <th>작성자</th>
@@ -110,9 +111,10 @@
                 Date create_date =rs.getDate("create_date");
         %>
         <tr>
+            <td><%=num%></td>
             <td style="width:100px"><%=category%></td>
 <%--            title을 클릭하면 게시물을 볼 수 있도록 설정--%>
-            <td ><a href="board_view.jsp?num=<%=num%>>"><%=title%></a></td>
+            <td ><a href="board_view.jsp?num=<%=num%>"><%=title%></a></td>
             <td ><%=writer%></td>
             <td ><%=views%></td>
             <td ><%=create_date%></td>
