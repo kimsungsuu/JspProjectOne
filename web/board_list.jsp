@@ -6,12 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="EUC-KR" %>
-<%
-    String boardTitle = "board_list";
-%>
 <%@ page import="java.sql.*" %>
-<%--<%@ page import="board_bean" %>--%>
-<%@ page import="java.util.Vector"%>
 
 <%
     Connection con = null;
@@ -25,7 +20,7 @@
         Class.forName("com.mysql.cj.jdbc.Driver");
         System.out.println("connect success!!!!");
     } catch (ClassNotFoundException e) {
-        System.err.println(" !! <JDBC Driver Error> Driver load Error 오류오류: " + e.getMessage());
+        System.err.println(" !! <JDBC Driver Error> Driver load Error : " + e.getMessage());
         e.printStackTrace();
     }
 
@@ -37,10 +32,10 @@
         System.err.println("con Error:" + e.getMessage());
         e.printStackTrace();
     }
-    int total = 0;
+
+    int total = 0;     // 게시물 수
 
     Statement stmt = con.createStatement();
-
     String sqlCount = "SELECT * FROM member";
     ResultSet rs = stmt.executeQuery(sqlCount);
 
@@ -51,14 +46,12 @@
 
     String sqlList = "SELECT num,category,title,writer,create_date,views,mod_date FROM member ORDER BY num DESC";
     rs = stmt.executeQuery(sqlList);
-
-
 %>
 
 <html lang="ko">
 <head>
     <meta http-equiv="Content-Type" content="text/html;  charset=UTF-8">
-    <title><%= boardTitle%>></title>
+    <title>board_list</title>
 
 <%--    해당하는 url로 이동할 수 있도록 자바스크립트 함수 선언--%>
     <script type="text/javascript">

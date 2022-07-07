@@ -57,13 +57,54 @@
 <head>
     <title>board_write</title>
 </head>
-<h1>게시판 등록</h1>
+<h1>게시판-등록</h1>
+
+<script type="text/javascript">
+    function gourl(url){
+        location.href=url;
+    }
+
+    // 유효성 체크
+    function BoardWriteChk() {
+        let cate = document.getElementById('category');
+        let wri = document.getElementById('writer');
+        let pass = document.getElementById('password');
+        let tit = document.getElementById('title');
+
+        if (cate.value == "" || cate.value == null) {
+            alert("카테고리를 선택하세요.");
+            cate.focus();
+            return false;
+        }
+
+        if (wri.value == "" || wri.value == null) {
+            alert("작성자명을 입력하세요.");
+            wri.focus();
+            return false;
+        }
+
+        if (pass.value == "" || pass.value == null) {
+            alert("비밀번호를 입력하세요.");
+            pass.focus();
+            return false;
+        }
+
+        if (tit.value == "" || tit.value == null) {
+            alert("제목을 입력하세요.");
+            tit.focus();
+            return false;
+        }
+        tit.submit();
+    }
+</script>
+
 <body>
-<table>
-    <tbody class="classification">
+<form name = "board_write" action="board_write_ok.jsp" method="post" onsubmit="return BoardWriteChk();">
+    <table>
+        <tbody class="classification">
         <tr>
             <th>카테고리</th>
-            <td><select id="category_write">
+            <td><select id="category" name="category">
                 <option value="Java">Java</option>
                 <option value="JavaScript">JavaScript</option>
                 <option value="Database">Database</option>
@@ -72,30 +113,32 @@
         <tr>
             <th>작성자</th>
             <td>
-                <input type="text">
+                <input type="text" id="writer" name="writer" maxlength="50">
             </td>
         </tr>
         <tr>
             <th>비밀번호</th>
-            <td><input type="text" placeholder="비밀번호"> <input type="text" placeholder="비밀번호 확인"></td>
-        </tr>    
+            <td><input type="text" placeholder="비밀번호" id="password" name="password" maxlength="50">
+                <input type="text" placeholder="비밀번호 확인"></td>
+        </tr>
         <tr>
             <th>제목</th>
-            <td><input type="text"></td>
-        </tr>    
+            <td><input type="text" id="title" name="title" maxlength="50"></td>
+        </tr>
         <tr>
             <th>내용</th>
-            <textarea name="content" id="" cols="30" rows="10"></textarea>
+            <td colspan="2"><textarea name="content" id="content" cols="75" rows="15"></textarea></td>
         </tr>
         <tr>
             <th>파일 첨부</th>
             <td> </td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
     <p>
         <input type="button" value="저장" onclick="gourl('board_list.jsp')">
-<%--        <input type="button" value="취소" onclick="gourl('board_list.jsp')">--%>
+        <%--        <input type="button" value="취소" onclick="gourl('board_list.jsp')">--%>
     </p>
+</form>
 </body>
 </html>
