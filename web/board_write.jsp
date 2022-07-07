@@ -34,7 +34,7 @@
     }
 
     Statement statement = con.createStatement();
-    ResultSet resultSet = statement.executeQuery("select * from member");
+    ResultSet resultSet = statement.executeQuery("select * from board");
 
     resultSet.next();
 

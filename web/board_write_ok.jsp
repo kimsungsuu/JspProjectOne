@@ -7,6 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="EUC-KR" %>
 <%@ page import ="java.sql.*"%>
+<%
+    //한글이 ?질 때
+    request.setCharacterEncoding("UTF-8");
+%>
 <%--글쓰기 한 후 결과물이 DB에 저장되도록 하는 jsp 파일--%>
 
 <%--DB처리--%>
@@ -38,8 +42,8 @@
         con = DriverManager.getConnection(url, user_name, password_DB);
         System.out.println("Connect Success");
 
-        String sql = "INSERT INTO member(NUM,category,writer,password,title,text,create_date,available,mod_date)"
-                + "VALUES (SEQ_BOARD_NUM.NEXTVAL,?,?,?,?,?,CURRENT_DATE,1,CURRENT_DATE)";
+        String sql = "INSERT INTO board(category,writer,password,title,text,create_date,mod_date,views)"
+                + "VALUES (?,?,?,?,?,now(),now(),0)";
 
         Statement stmt = con.createStatement();
         PreparedStatement pstmt = con.prepareStatement(sql);
