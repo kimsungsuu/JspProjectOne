@@ -13,7 +13,7 @@
 
     String url = "jdbc:mysql://localhost:3306/user?useSSL=false";
     String user_name = "root"; //  MySQL 서버 아이디
-    String password = "pw1234"; // MySQL 서버 비밀번호
+    String password_DB = "pw1234"; // MySQL 서버 비밀번호
 
 //   1.드라이버 로딩
     try {
@@ -26,7 +26,7 @@
 
     // 2.연결
     try {
-        con = DriverManager.getConnection(url, user_name, password);
+        con = DriverManager.getConnection(url, user_name, password_DB);
         System.out.println("Connect Success");
     } catch(SQLException e) {
         System.err.println("con Error:" + e.getMessage());
@@ -37,13 +37,6 @@
     ResultSet resultSet = statement.executeQuery("select * from member");
 
     resultSet.next();
-
-//  String name = resultSet.getString("name");
-//  String email = resultSet.getString("email");
-//  int num = resultSet.getInt("num");
-//  String pw = resultSet.getString("pw");
-
-//  System.out.println(name);
 
     // 3.해제
     try {
@@ -66,10 +59,10 @@
 
     // 유효성 체크
     function BoardWriteChk() {
-        let cate = document.getElementById('category');
-        let wri = document.getElementById('writer');
-        let pass = document.getElementById('password');
-        let tit = document.getElementById('title');
+        var cate = document.getElementById('category');
+        var wri = document.getElementById('writer');
+        var pass = document.getElementById('password');
+        var tit = document.getElementById('title');
 
         if (cate.value == "" || cate.value == null) {
             alert("카테고리를 선택하세요.");
@@ -94,7 +87,7 @@
             tit.focus();
             return false;
         }
-        tit.submit();
+        title.submit();
     }
 </script>
 
@@ -127,7 +120,9 @@
         </tr>
         <tr>
             <th>내용</th>
-            <td colspan="2"><textarea name="content" id="content" cols="75" rows="15"></textarea></td>
+            <td colspan="2">
+                <textarea name="text" id="text" cols="75" rows="15"></textarea>
+            </td>
         </tr>
         <tr>
             <th>파일 첨부</th>
@@ -136,8 +131,8 @@
         </tbody>
     </table>
     <p>
-        <input type="button" value="저장" onclick="gourl('board_list.jsp')">
-        <%--        <input type="button" value="취소" onclick="gourl('board_list.jsp')">--%>
+        <input type="submit" value="저장">
+        <input type="button" value="취소" onclick="gourl('board_list.jsp')">
     </p>
 </form>
 </body>

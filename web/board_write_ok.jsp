@@ -2,14 +2,77 @@
   Created by IntelliJ IDEA.
   User: LG677
   Date: 2022-07-06
-  Time: ì˜¤í›„ 9:16
+  Time: ¿ÀÈÄ 9:16
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="EUC-KR" %>
+<%@ page import ="java.sql.*"%>
+<%--±Û¾²±â ÇÑ ÈÄ °á°ú¹°ÀÌ DB¿¡ ÀúÀåµÇµµ·Ï ÇÏ´Â jsp ÆÄÀÏ--%>
+
+<%--DBÃ³¸®--%>
+<%
+    Connection con = null;
+
+    String url = "jdbc:mysql://localhost:3306/user?useSSL=false";
+    String user_name = "root"; //  MySQL ¼­¹ö ¾ÆÀÌµğ
+    String password_DB = "pw1234"; // MySQL ¼­¹ö ºñ¹Ğ¹øÈ£
+
+//   1.µå¶óÀÌ¹ö ·Îµù
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        System.out.println("connect success!!!!");
+    } catch (ClassNotFoundException e) {
+        System.err.println(" !! <JDBC Driver Error> Driver load Error : " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    String category = request.getParameter("category");
+    String writer = request.getParameter("writer");
+    String password = request.getParameter("password");
+    String title = request.getParameter("title");
+    String text = request.getParameter("text");
+
+
+    // 2.¿¬°á
+    try {
+        con = DriverManager.getConnection(url, user_name, password_DB);
+        System.out.println("Connect Success");
+
+        String sql = "INSERT INTO member(NUM,category,writer,password,title,text,create_date,available,mod_date)"
+                + "VALUES (SEQ_BOARD_NUM.NEXTVAL,?,?,?,?,?,CURRENT_DATE,1,CURRENT_DATE)";
+
+        Statement stmt = con.createStatement();
+        PreparedStatement pstmt = con.prepareStatement(sql);
+
+        pstmt.setString(1, category);
+        pstmt.setString(2, writer);
+        pstmt.setString(3, password);
+        pstmt.setString(4, title);
+        pstmt.setString(5, text);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+        con.close();
+        stmt.close();
+    }
+    catch(SQLException e) {
+    System.err.println("con Error:" + e.getMessage());
+    e.printStackTrace();
+    }
+
+%>
+
+
 <html>
 <head>
     <title>Title</title>
+
 </head>
+<script type="text/javascript">
+    self.window.alert("ÀÔ·ÂÇÑ ±ÛÀ» ÀúÀåÇÏ¿´½À´Ï´Ù.");
+    location.href="board_list.jsp";
+</script>
 <body>
 
 </body>

@@ -13,7 +13,7 @@
 
     String url = "jdbc:mysql://localhost:3306/user?useSSL=false";
     String user_name = "root"; //  MySQL 서버 아이디
-    String password = "pw1234"; // MySQL 서버 비밀번호
+    String password_DB = "pw1234"; // MySQL 서버 비밀번호
 
 //   1.드라이버 로딩
     try {
@@ -26,7 +26,7 @@
 
     // 2.연결
     try {
-        con = DriverManager.getConnection(url, user_name, password);
+        con = DriverManager.getConnection(url, user_name, password_DB);
         System.out.println("Connect Success");
     } catch(SQLException e) {
         System.err.println("con Error:" + e.getMessage());
@@ -36,7 +36,7 @@
     int total = 0;     // 게시물 수
 
     Statement stmt = con.createStatement();
-    String sqlCount = "SELECT * FROM member";
+    String sqlCount = "SELECT * FROM board";
     ResultSet rs = stmt.executeQuery(sqlCount);
 
     if(rs.next()){
@@ -44,7 +44,7 @@
     }
     rs.close();
 
-    String sqlList = "SELECT num,category,title,writer,create_date,views,mod_date FROM member ORDER BY num DESC";
+    String sqlList = "SELECT num,category,title,writer,create_date,views,mod_date FROM board ORDER BY num DESC";
     rs = stmt.executeQuery(sqlList);
 %>
 

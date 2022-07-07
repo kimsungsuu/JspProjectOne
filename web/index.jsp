@@ -5,7 +5,7 @@
 
   String url = "jdbc:mysql://localhost:3306/user?useSSL=false";
   String user_name = "root"; //  MySQL 서버 아이디
-  String password = "pw1234"; // MySQL 서버 비밀번호
+  String password_DB = "pw1234"; // MySQL 서버 비밀번호
 
 //   1.드라이버 로딩
   try {
@@ -18,7 +18,7 @@
 
   // 2.연결
   try {
-    con = DriverManager.getConnection(url, user_name, password);
+    con = DriverManager.getConnection(url, user_name, password_DB);
     System.out.println("Connect Success");
   } catch(SQLException e) {
     System.err.println("con Error:" + e.getMessage());
