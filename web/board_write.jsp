@@ -55,9 +55,47 @@
 %>
 <html>
 <head>
-    <title>Title</title>
+    <title>board_write</title>
 </head>
+<h1>게시판 등록</h1>
 <body>
-
+<table>
+    <tbody class="classification">
+        <tr>
+            <th>카테고리</th>
+            <td><select id="category_write">
+                <option value="Java">Java</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Database">Database</option>
+            </select></td>
+        </tr>
+        <tr>
+            <th>작성자</th>
+            <td>
+                <input type="text">
+            </td>
+        </tr>
+        <tr>
+            <th>비밀번호</th>
+            <td><input type="text" placeholder="비밀번호"> <input type="text" placeholder="비밀번호 확인"></td>
+        </tr>    
+        <tr>
+            <th>제목</th>
+            <td><input type="text"></td>
+        </tr>    
+        <tr>
+            <th>내용</th>
+            <textarea name="content" id="" cols="30" rows="10"></textarea>
+        </tr>
+        <tr>
+            <th>파일 첨부</th>
+            <td> </td>
+        </tr>
+    </tbody>
+</table>
+    <p>
+        <input type="button" value="저장" onclick="gourl('board_list.jsp')">
+<%--        <input type="button" value="취소" onclick="gourl('board_list.jsp')">--%>
+    </p>
 </body>
 </html>

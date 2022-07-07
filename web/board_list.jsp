@@ -108,6 +108,7 @@
     </div>
 </head>
 <body>
+<form name="searchform" action="" method="get"></form>
 <nav id="board_list">
     <table>
         <colgroup>
@@ -149,11 +150,18 @@
         <tr>
             <td style="width:100px"><%=num%></td>
             <td style="width:100px"><%=category%></td>
-            <td ><%=title%></td>
+            <td ><a href="board_view.jsp?num=<%=num%>>"><%=title%></a></td>
             <td ><%=writer%></td>
             <td ><%=views%></td>
             <td ><%=create_date%></td>
             <td ><%=mod_date%></td>
+
+            <td style="width:100px">Java</td>
+            <td ><a href="board_view.jsp?num=<%=num%>>">Okky 가나다라마바사 반갑습니다</a></td>
+            <td >김성수</td>
+            <td >12</td>
+            <td >2022.7.6</td>
+            <td >2022.7.6</td>
         </tr>
         <%
             }
