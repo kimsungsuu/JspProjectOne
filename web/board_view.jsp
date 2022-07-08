@@ -97,7 +97,7 @@
 </body>
 <footer>
     <input type="button" value="목록" onclick="gourl('board_list.jsp')" >
-    <input type="submit" value="수정">
+    <input type="submit" value="수정" onclick="window.location='board_modify.jsp?num=<%=num%>'">
     <input type="submit" value="삭제">
 </footer>
 </html>

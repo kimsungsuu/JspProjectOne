@@ -61,22 +61,22 @@
     </script>
 
     <h1>게시판 - 목록</h1>
+</head>
+<body>
+<form name="searchform"  method="get">
     <div id="search">
         <label>등록일<input type="date" | type = "month" | type="week" ></label>
         <input type="date" | type = "month" | type="week" >
-        <input type="text" placeholder="전체 카테고리" list="pack">
-        <datalist id="pack">
+        <select name = "searchcategory">
+            <option value="all">전체 카테고리</option>
             <option value="Java">Java</option>
             <option value="Javascript">Javascript</option>
             <option value="Database">Database</option>
-        </datalist>
-
-        <input type="text" placeholder="검색어를 입력해주세요(제목 + 작성자 + 내용)">
+        </select>
+        <input type="text" name ="searchtext" placeholder="검색어를 입력해주세요(제목 + 작성자 + 내용)">
         <input type="submit"  value="검색">
     </div>
-</head>
-<body>
-<form name="searchform" action="" method="get"></form>
+</form>
 <nav id="board_list">
     <table>
         <thead>

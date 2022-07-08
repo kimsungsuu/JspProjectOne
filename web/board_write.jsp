@@ -92,7 +92,7 @@
 </script>
 
 <body>
-<form name = "board_write" action="board_write_ok.jsp" method="post" onsubmit="return BoardWriteChk();">
+<form id="board_write" name = "board_write" action="board_write_ok.jsp" method="post" onsubmit="return BoardWriteChk();">
     <table>
         <tbody class="classification">
         <tr>
