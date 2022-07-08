@@ -18,6 +18,7 @@
         num = Integer.parseInt(request.getParameter("num"));
     }
 
+
 //   1.드라이버 로딩
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
