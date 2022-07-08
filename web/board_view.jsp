@@ -33,12 +33,11 @@
         con = DriverManager.getConnection(url, user_name, password_DB);
         System.out.println("Connect Success");
 
-    String sql = "SELECT category,title,writer,text,create_date, mod_date FROM board WHERE num=?";
+    Statement stmt = con.createStatement();
 
-    PreparedStatement pstmt = con.prepareStatement(sql);
-    pstmt.setInt(1,num);
+        String sql = "SELECT category,title,writer,text,create_date, mod_date FROM board WHERE num="+num;
 
-    ResultSet rs = pstmt.executeQuery();
+    ResultSet rs = stmt.executeQuery(sql);
 
     if(rs.next()){
         String category = rs.getString("category");
@@ -89,7 +88,7 @@
     }
     rs.close();
     con.close();
-    pstmt.close();
+    stmt.close();
     } catch(SQLException e) {
         System.err.println("con Error:" + e.getMessage());
         e.printStackTrace();

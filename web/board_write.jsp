@@ -33,17 +33,17 @@
         e.printStackTrace();
     }
 
-    Statement statement = con.createStatement();
-    ResultSet resultSet = statement.executeQuery("select * from board");
-
-    resultSet.next();
+//    Statement statement = con.createStatement();
+//    ResultSet resultSet = statement.executeQuery("select * from board");
+//
+//    resultSet.next();
 
     // 3.해제
     try {
         if(con != null)
             con.close();
-        statement.close();
-        resultSet.close();
+//        statement.close();
+//        resultSet.close();
     } catch (SQLException e) {}
 %>
 <html>
@@ -87,12 +87,12 @@
             tit.focus();
             return false;
         }
-        title.submit();
+        tit.submit();
     }
 </script>
 
 <body>
-<form id="board_write" name = "board_write" action="board_write_ok.jsp" method="post" onsubmit="return BoardWriteChk();">
+<form name="board_write" action="board_write_ok.jsp" method="post" onsubmit="return BoardWriteChk();">
     <table>
         <tbody class="classification">
         <tr>
@@ -106,17 +106,17 @@
         <tr>
             <th>작성자</th>
             <td>
-                <input type="text" id="writer" name="writer" maxlength="50">
+                <input type="text" id="writer" name="writer" maxlength="50" value="">
             </td>
         </tr>
         <tr>
             <th>비밀번호</th>
-            <td><input type="text" placeholder="비밀번호" id="password" name="password" maxlength="50">
+            <td><input type="text" placeholder="비밀번호" id="password" name="password" maxlength="50" value="">
                 <input type="text" placeholder="비밀번호 확인"></td>
         </tr>
         <tr>
             <th>제목</th>
-            <td><input type="text" id="title" name="title" maxlength="50"></td>
+            <td><input type="text" id="title" name="title" maxlength="50" value=""></td>
         </tr>
         <tr>
             <th>내용</th>
