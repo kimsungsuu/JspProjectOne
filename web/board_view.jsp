@@ -13,11 +13,11 @@
     String url = "jdbc:mysql://localhost:3306/user?useSSL=false";
     String user_name = "root"; //  MySQL 서버 아이디
     String password_DB = "pw1234"; // MySQL 서버 비밀번호
-    int num=0;
-    if(request.getParameter("num") != null){
-        num = Integer.parseInt(request.getParameter("num"));
-    }
-
+//    int num=0;
+//    if(request.getParameter("num") != null){
+//        num = Integer.parseInt(request.getParameter("num"));
+//    }
+    String num = request.getParameter("num");
 
 //   1.드라이버 로딩
     try {

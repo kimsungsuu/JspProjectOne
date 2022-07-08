@@ -21,7 +21,7 @@
         String text = request.getParameter("text");
         String category = request.getParameter("category");
         int num = Integer.parseInt(request.getParameter("num"));
-
+//        String num = request.getParameter("num");
 
 
 //   1.드라이버 로딩
@@ -61,34 +61,34 @@
 <html>
 <head>
     <title>board_modify</title>
+    <script type="text/javascript">
+        function BoardModifyChk(){
+            var writer = document.getElementById('writer');
+            var password = document.getElementById('password');
+            var title = document.getElementById('title');
+
+            if(title.value== ""){
+                alert("제목을 입력하세요.");
+                title.focus();
+                return false;
+            }
+
+            if(writer.value== ""){
+                alert("작성자명을 입력하세요.");
+                writer.focus();
+                return false;
+            }
+
+            if(password.value== ""){
+                alert("비밀번호를 입력하세요.");
+                password.focus();
+                return false;
+            }
+        }
+    </script>
 </head>
-<script type="text/javascript">
-    function BoardModifyChk(){
-        var writer = document.getElementById('writer');
-        var password = document.getElementById('password');
-        var title = document.getElementById('title');
-
-        if(title.value== ""){
-            alert("제목을 입력하세요.");
-            title.focus();
-            return false;
-        }
-
-        if(writer.value== ""){
-            alert("작성자명을 입력하세요.");
-            writer.focus();
-            return false;
-        }
-
-        if(password.value== ""){
-            alert("비밀번호를 입력하세요.");
-            password.focus();
-            return false;
-        }
-    }
-</script>
 <body>
-<form name = "board_modify" action="board_modify_ok.jsp" method="post" onsubmit="return BoardModifyChk();">
+<form name="board_modify_form" action="board_modify_ok.jsp" method="post" onsubmit="return BoardModifyChk();">
     <table>
         <tbody>
         <tr>
@@ -133,10 +133,9 @@
         </tr>
         </tbody>
     </table>
-    <p>
+        <input type="hidden" name="num" value="<%=num%>">
         <input type="submit" value="수정">
-        <input type="button" value="취소" onclick="history.back(-1)">
-    </p>
+        <input type="button" value="취소" onclick="history.back()">
 </form>
 <%
 

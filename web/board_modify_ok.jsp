@@ -5,7 +5,7 @@
   Time: 오전 10:30
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <% request.setCharacterEncoding("UTF-8"); //한글이 깨질 경우 %>
 
@@ -17,11 +17,11 @@
     String password_DB = "pw1234"; // MySQL 서버 비밀번호
     String password ="";
 
-    String NUM = request.getParameter("NUM");
-    if(NUM == null){
-        NUM = "13";
+    String num = request.getParameter("num");
+    if(num == null){
+        response.sendRedirect("board_list.jsp");
     }
-    int num = Integer.parseInt(NUM);
+
 
     String title = request.getParameter("title");
     String text = request.getParameter("text");
@@ -48,9 +48,9 @@
 
         ResultSet rs = stmt.executeQuery(sql);
 
-        if(rs.next()){
+        if(rs.next()) {
             password = rs.getString("password");
-
+        }
 
         if(password.equals(PASSWORD)){
             sql = "UPDATE board SET title ='"+title+"',text='"+text+"',writer='"+writer+"' WHERE num="+num;
@@ -67,11 +67,10 @@
 %>
 <script type="text/javascript">
     self.window.alert("비밀번호가 틀렸습니다.");
-    history.back(-1);
+    history.back();
 </script>
 <%
             }
-        }
     } catch(SQLException e) {
         System.err.println("con Error:" + e.getMessage());
         e.printStackTrace();
@@ -79,12 +78,12 @@
 
 %>
 
-<html>
-<head>
-    <title>Title</title>
-</head>
+<%--<html>--%>
+<%--<head>--%>
+<%--    <title>Title</title>--%>
+<%--</head>--%>
 
-<body>
+<%--<body>--%>
 
-</body>
-</html>
+<%--</body>--%>
+<%--</html>--%>
