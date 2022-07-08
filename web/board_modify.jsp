@@ -51,11 +51,7 @@
                  text = rs.getString("text");
                 Date create_date = rs.getDate("create_date");
                 Date mod_date = rs.getDate("mod_date");
-            }
 
-            rs.close();
-            con.close();
-            stmt.close();
         %>
 
 <html>
@@ -95,14 +91,14 @@
             <th>카테고리</th>
             <td><%=category%></td>
         </tr>
-<%--        <tr>--%>
-<%--            <th>등록 일시</th>--%>
-<%--            <td><%=create_date%></td>--%>
-<%--        </tr>--%>
-<%--        <tr>--%>
-<%--            <th>수정 일시</th>--%>
-<%--            <td><%=mod_date%></td>--%>
-<%--        </tr>--%>
+        <tr>
+            <th>등록 일시</th>
+            <td><%=create_date%></td>
+        </tr>
+        <tr>
+            <th>수정 일시</th>
+            <td><%=mod_date%></td>
+        </tr>
         <tr>
             <th>조회수</th>
             <td></td>
@@ -138,7 +134,11 @@
         <input type="button" value="취소" onclick="history.back()">
 </form>
 <%
+        }
 
+        rs.close();
+        con.close();
+        stmt.close();
     } catch(SQLException e) {
         System.err.println("con Error:" + e.getMessage());
         e.printStackTrace();

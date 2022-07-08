@@ -33,17 +33,11 @@
         e.printStackTrace();
     }
 
-//    Statement statement = con.createStatement();
-//    ResultSet resultSet = statement.executeQuery("select * from board");
-//
-//    resultSet.next();
 
     // 3.해제
     try {
         if(con != null)
             con.close();
-//        statement.close();
-//        resultSet.close();
     } catch (SQLException e) {}
 %>
 <html>
